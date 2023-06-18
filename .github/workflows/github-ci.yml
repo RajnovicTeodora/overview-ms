@@ -41,7 +41,7 @@ jobs:
         run: mvn clean install
 
       - name: Run unit tests
-        run: mvn test --no-fail-at-end
+        run: mvn test
 
       - name: Run integration tests
         run: mvn verify -Pintegration-tests
