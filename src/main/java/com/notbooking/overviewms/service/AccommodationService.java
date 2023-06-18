@@ -4,6 +4,7 @@ import com.notbooking.overviewms.dto.AccommodationDTO;
 import com.notbooking.overviewms.mapper.AccommodationMapper;
 import com.notbooking.overviewms.model.Accommodation;
 import com.notbooking.overviewms.repository.AccommodationRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +29,8 @@ public class AccommodationService {
         return accommodationMapper.toDto(accommodations);
     }
 
-    public AccommodationDTO updateAccommodation(AccommodationDTO accommodationRequest) {
-
-        return createAccommodation(accommodationRequest);
+    public AccommodationDTO findById(Long id) {
+        Accommodation accommodation = accommodationRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return accommodationMapper.toDto(accommodation);
     }
 }
