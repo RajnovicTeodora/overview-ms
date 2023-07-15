@@ -5,7 +5,6 @@ import com.notbooking.overviewms.mapper.AccommodationMapper;
 import com.notbooking.overviewms.model.Accommodation;
 import com.notbooking.overviewms.repository.AccommodationRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,11 +12,16 @@ import java.util.List;
 @Service
 public class AccommodationService {
 
-    @Autowired
-    private AccommodationRepository accommodationRepository;
+    private final AccommodationRepository accommodationRepository;
 
-    @Autowired
-    private AccommodationMapper accommodationMapper;
+
+    private final AccommodationMapper accommodationMapper;
+
+    public AccommodationService(AccommodationRepository accommodationRepository,
+                                AccommodationMapper accommodationMapper) {
+        this.accommodationRepository = accommodationRepository;
+        this.accommodationMapper = accommodationMapper;
+    }
 
     public AccommodationDTO createAccommodation(AccommodationDTO accommodationRequest) {
         Accommodation accommodation = accommodationMapper.toModel(accommodationRequest);
