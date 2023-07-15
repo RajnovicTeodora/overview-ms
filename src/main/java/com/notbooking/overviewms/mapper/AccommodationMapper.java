@@ -10,11 +10,17 @@ import java.util.stream.Collectors;
 @Component
 public class AccommodationMapper implements DefaultMapper<AccommodationDTO, Accommodation> {
 
+    private final AddressMapper addressMapper;
+
+    public AccommodationMapper(AddressMapper addressMapper) {
+        this.addressMapper = addressMapper;
+    }
+
     public Accommodation toModel(AccommodationDTO accommodationRequest) {
         return Accommodation.builder()
                 .name(accommodationRequest.getName())
                 .description(accommodationRequest.getDescription())
-                .address(accommodationRequest.getAddress())
+                .address(addressMapper.toModel(accommodationRequest.getAddress()))
                 .photos(accommodationRequest.getPhotos())
                 .benefits(accommodationRequest.getBenefits())
                 .maxGuests(accommodationRequest.getMaxGuests())
@@ -28,13 +34,13 @@ public class AccommodationMapper implements DefaultMapper<AccommodationDTO, Acco
                 .id(accommodation.getId())
                 .name(accommodation.getName())
                 .description(accommodation.getDescription())
-                .address(accommodation.getAddress())
                 .photos(accommodation.getPhotos())
                 .benefits(accommodation.getBenefits())
                 .maxGuests(accommodation.getMaxGuests())
                 .minGuests(accommodation.getMinGuests())
                 .averageScore(accommodation.getAverageScore())
                 .automaticApproval(accommodation.isAutomaticApproval())
+                .address(addressMapper.toDto(accommodation.getAddress()))
                 .deleted(accommodation.isDeleted())
                 .build();
     }

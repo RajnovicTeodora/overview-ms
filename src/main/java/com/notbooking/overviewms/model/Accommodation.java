@@ -1,10 +1,7 @@
 package com.notbooking.overviewms.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -25,9 +22,6 @@ public class Accommodation extends DefaultModel {
 
     @Column(name = "description")
     private String description;
-
-    @Column(name = "address")
-    private String address; // Todo maybe place the information inside a class
 
     @Column(name = "photos")
     private List<String> photos;
@@ -51,6 +45,11 @@ public class Accommodation extends DefaultModel {
     @Builder.Default
     @Column(name = "average_score")
     private double averageScore = 0;
+
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
 
     public void calculateAverageScore() {
         this.averageScore = scores.stream()

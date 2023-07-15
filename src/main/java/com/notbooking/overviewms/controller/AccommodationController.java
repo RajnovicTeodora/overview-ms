@@ -1,6 +1,8 @@
 package com.notbooking.overviewms.controller;
 
 import com.notbooking.overviewms.dto.AccommodationDTO;
+import com.notbooking.overviewms.dto.params.AccommodationFilterParams;
+import com.notbooking.overviewms.mapper.AccommodationMapper;
 import com.notbooking.overviewms.service.AccommodationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,25 +21,36 @@ public class AccommodationController {
     @Autowired
     private final AccommodationService accommodationService;
 
+    private final AccommodationMapper accommodationMapper;
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<AccommodationDTO> createAccommodation(@RequestBody AccommodationDTO accommodationRequest) {
-        AccommodationDTO accommodation = accommodationService.createAccommodation(accommodationRequest);
+        var accommodation = accommodationService.createAccommodation(accommodationRequest);
         if (accommodation != null)
-            return new ResponseEntity<>(accommodation, HttpStatus.CREATED);
+            return new ResponseEntity<>(accommodationMapper.toDto(accommodation), HttpStatus.CREATED);
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<AccommodationDTO>> getAllAccommodations() {
-        return new ResponseEntity<>(accommodationService.getAllAccommodations(), HttpStatus.OK);
+        var accommodations = accommodationService.getAllAccommodations();
+        return new ResponseEntity<>(accommodationMapper.toDto(accommodations), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<AccommodationDTO> findById(@PathVariable Long id) {
-        return new ResponseEntity<>(accommodationService.findById(id), HttpStatus.OK);
+        var accommodation = accommodationService.findById(id);
+        return new ResponseEntity<>(accommodationMapper.toDto(accommodation), HttpStatus.OK);
+    }
+
+    @GetMapping("/filter")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<AccommodationDTO>> filterAll(AccommodationFilterParams params) {
+        var accommodations = accommodationService.filterAll(params);
+        return new ResponseEntity<>(accommodationMapper.toDto(accommodations), HttpStatus.OK);
     }
 
 }

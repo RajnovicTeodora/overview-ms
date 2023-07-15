@@ -17,12 +17,12 @@ public class AccommodationDTO extends DefaultDTO {
 
     private String name;
     private String description;
-    private String address; // Todo maybe place the information inside a class
     private List<String> photos;
     private List<String> benefits;
     private int maxGuests;
     private int minGuests;
     private boolean automaticApproval;
     private double averageScore;
+    private AddressDTO address;
 
 }

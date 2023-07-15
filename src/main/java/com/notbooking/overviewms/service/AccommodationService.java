@@ -1,8 +1,10 @@
 package com.notbooking.overviewms.service;
 
 import com.notbooking.overviewms.dto.AccommodationDTO;
+import com.notbooking.overviewms.dto.params.AccommodationFilterParams;
 import com.notbooking.overviewms.mapper.AccommodationMapper;
 import com.notbooking.overviewms.model.Accommodation;
+import com.notbooking.overviewms.model.Address;
 import com.notbooking.overviewms.repository.AccommodationRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
@@ -23,18 +25,25 @@ public class AccommodationService {
         this.accommodationMapper = accommodationMapper;
     }
 
-    public AccommodationDTO createAccommodation(AccommodationDTO accommodationRequest) {
+    @Autowired
+    private AddressService addressService;
+
+    public Accommodation createAccommodation(AccommodationDTO accommodationRequest) {
         Accommodation accommodation = accommodationMapper.toModel(accommodationRequest);
-        return accommodationMapper.toDto(accommodationRepository.save(accommodation));
+        return accommodationRepository.save(accommodation);
     }
 
-    public List<AccommodationDTO> getAllAccommodations() {
-        List<Accommodation> accommodations = accommodationRepository.findAll();
-        return accommodationMapper.toDto(accommodations);
+    public List<Accommodation> getAllAccommodations() {
+        return accommodationRepository.findAll();
     }
 
-    public AccommodationDTO findById(Long id) {
+    public Accommodation findById(Long id) {
         Accommodation accommodation = accommodationRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        return accommodationMapper.toDto(accommodation);
+        accommodation.setAddress(addressService.findById(accommodation.getAddress().getId()));
+        return accommodation;
+    }
+
+    public List<Accommodation> filterAll(AccommodationFilterParams params) {
+        return accommodationRepository.filterByParams(params);
     }
 }
