@@ -1,9 +1,3 @@
-#FROM openjdk:17
-#COPY target/*.jar app.jar
-#EXPOSE 8080
-#ENTRYPOINT ["java","-jar","/app.jar"]
-
-
 ### BUILD image
 FROM maven:3.8.5-openjdk-17-slim as builder
 # create app folder for sources
@@ -39,5 +33,3 @@ WORKDIR $APP_HOME
 COPY --from=builder /build/target/*.jar app.jar
 
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar app.jar" ]
-#Second option using shell form:
-#ENTRYPOINT exec java $JAVA_OPTS -jar app.jar $0 $@
