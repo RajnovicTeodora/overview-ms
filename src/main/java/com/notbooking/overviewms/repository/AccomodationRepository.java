@@ -34,7 +34,7 @@ public interface AccomodationRepository extends MongoRepository<Accomodation, St
 //            @Param("toDate") String toDate);
 
 
-    List<Accomodation> findByMinGuestLessThanEqualAndMaxGuestGreaterThanEqualAndNameIsLikeAndIdNotInAndIdNotIn(
+    List<Accomodation> findByMinGuestLessThanEqualAndMaxGuestGreaterThanEqualAndNameContainsIgnoreCase(
             int maxGuest,
             int minGuest,
             String name

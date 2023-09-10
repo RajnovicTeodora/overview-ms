@@ -21,4 +21,19 @@ public abstract class DateRange {
     private Date dateFrom; //pitaj da li da stavim local
     private Date dateTo;
 
+    public Date getDateFrom() {
+        return dateFrom;
+    }
+
+    public void setDateFrom(Date dateFrom) {
+        this.dateFrom = dateFrom;
+    }
+
+    public Date getDateTo() {
+        return dateTo;
+    }
+
+    public void setDateTo(Date dateTo) {
+        this.dateTo = dateTo;
+    }
 }

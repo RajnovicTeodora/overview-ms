@@ -1,9 +1,6 @@
 package com.notbooking.overviewms.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(value = "reservation")
@@ -11,6 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @Builder
 @Data
+@Getter
+@Setter
 public class Reservation extends DateRange {
     private int guestNumber;
     private Guest guest;  //da imam samo jednog gosta koji je rezervisao ovo u jednom trebutku

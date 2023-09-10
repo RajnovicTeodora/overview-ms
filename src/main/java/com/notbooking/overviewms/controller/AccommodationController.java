@@ -47,9 +47,9 @@ public class AccommodationController {
         return new ResponseEntity<>(accommodationMapper.toDto(accommodation), HttpStatus.OK);
     }
 
-    @GetMapping("/filter")
+    @PostMapping("/filter")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<AccommodationDTO>> filterAll(AccommodationFilterParams params) throws ParseException {
+    public ResponseEntity<List<AccommodationDTO>> filterAll(@RequestBody AccommodationFilterParams params) throws ParseException {
         var accommodations = accommodationService.filterAll(params);
         return new ResponseEntity<>(accommodationMapper.toDto(accommodations), HttpStatus.OK);
     }

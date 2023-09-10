@@ -12,14 +12,5 @@ import java.util.List;
 @Repository
 public interface ReservationRepository extends MongoRepository<Reservation, String> {
 
-    @Query("{" +
-            "$or: [" +
-            "   { $and: [ { dateFrom: { $lte: :toDate }, dateTo: { $gte: :fromDate } }, { isCancelled: false } ] }, " +
-            "   { $and: [ { dateFrom: { $gte: :fromDate, $lte: :toDate } }, { isCancelled: false } ] }" +
-            "]" +
-            "}")
-    List<String> findOverlappingReservationIds(
-            @Param("fromDate") Date fromDate,
-            @Param("toDate") Date toDate
-    );
+        List<Reservation> findByAccomodationId(String accomodationId);
 }
