@@ -18,7 +18,7 @@ public class AccommodationDTO extends DefaultDTO {
     private String name;
     private String description;
     private List<String> photos;
-    private List<String> benefits;
+    private String benefits;
     private int maxGuests;
     private int minGuests;
     private boolean automaticApproval;

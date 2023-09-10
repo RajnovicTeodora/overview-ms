@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class AddressMapper implements DefaultMapper<AddressDTO, Address> {
+public class AddressMapper {
     public Address toModel(AddressDTO dto) {
         return Address.builder()
                 .street(dto.getStreet())
                 .city(dto.getCity())
-                .country(dto.getCountry())
+                .number(dto.getNumber())
                 .build();
     }
 
@@ -21,7 +21,7 @@ public class AddressMapper implements DefaultMapper<AddressDTO, Address> {
         return AddressDTO.builder()
                 .street(model.getStreet())
                 .city(model.getCity())
-                .country(model.getCountry())
+                .number(model.getNumber())
                 .build();
     }
 

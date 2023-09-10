@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public class DefaultDTO {
 
-    private Long id;
+    private String id;
     private boolean deleted;
 
 }

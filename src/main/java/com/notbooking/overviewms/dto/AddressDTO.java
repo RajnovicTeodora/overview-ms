@@ -15,5 +15,5 @@ public class AddressDTO extends DefaultDTO {
 
     private String street;
     private String city;
-    private String country;
+    private String number;
 }

@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -41,14 +42,14 @@ public class AccommodationController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<AccommodationDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<AccommodationDTO> findById(@PathVariable String id) {
         var accommodation = accommodationService.findById(id);
         return new ResponseEntity<>(accommodationMapper.toDto(accommodation), HttpStatus.OK);
     }
 
     @GetMapping("/filter")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<AccommodationDTO>> filterAll(AccommodationFilterParams params) {
+    public ResponseEntity<List<AccommodationDTO>> filterAll(AccommodationFilterParams params) throws ParseException {
         var accommodations = accommodationService.filterAll(params);
         return new ResponseEntity<>(accommodationMapper.toDto(accommodations), HttpStatus.OK);
     }

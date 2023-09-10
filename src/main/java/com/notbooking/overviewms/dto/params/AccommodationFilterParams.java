@@ -12,7 +12,7 @@ public class AccommodationFilterParams {
     private String country;
     private String city;
     private String address;
-    private String guests;
+    private int guests;
     private String fromDate;
     private String toDate;
 

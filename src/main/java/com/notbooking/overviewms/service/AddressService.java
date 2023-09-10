@@ -22,7 +22,7 @@ public class AddressService {
         return addressRepository.save(address);
     }
 
-    public Address findById(Long id) {
+    public Address findById(String id) {
         return addressRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 }

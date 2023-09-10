@@ -1,32 +1,21 @@
 package com.notbooking.overviewms.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.math.BigDecimal;
-
-@Data
-@Entity
-@SuperBuilder
-@NoArgsConstructor
+@Document(value = "address")
 @AllArgsConstructor
-@Table(name = "address")
-@EqualsAndHashCode(callSuper = true)
-public class Address extends DefaultModel{
-
-    @Column(name = "street")
+@NoArgsConstructor
+@Builder
+@Data
+public class Address {
+    @Id
+    private String id;
     private String street;
-
-    @Column(name = "city", nullable = false)
+    private String number;
     private String city;
-
-    @Column(name = "country", nullable = false)
-    private String country;
-
 }

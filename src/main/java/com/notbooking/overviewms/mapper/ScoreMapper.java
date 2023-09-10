@@ -4,11 +4,12 @@ import com.notbooking.overviewms.dto.ScoreDTO;
 import com.notbooking.overviewms.model.Score;
 import org.springframework.stereotype.Component;
 
+import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class ScoreMapper implements DefaultMapper<ScoreDTO, Score> {
+public class ScoreMapper {
 
     private final AccommodationMapper accommodationMapper;
 
@@ -16,21 +17,23 @@ public class ScoreMapper implements DefaultMapper<ScoreDTO, Score> {
         this.accommodationMapper = accommodationMapper;
     }
 
-    public Score toModel(ScoreDTO scoreRequest) {
-        return Score.builder()
-                .score(scoreRequest.getScore())
-                .date(scoreRequest.getDate())
-                .guestId(scoreRequest.getGuestId())
-                .build();
-    }
+//    public Score toModel(ScoreDTO scoreRequest) {
+//        return Score.builder()
+//                .score(scoreRequest.getScore())
+//                .date(LocalDateTime.from(scoreRequest.getDate())
+//                .guestId(scoreRequest.getGuestId())
+//                .build();
+//    }
 
     public ScoreDTO toDto(Score score) {
         return ScoreDTO.builder()
                 .id(score.getId())
                 .score(score.getScore())
-                .date(score.getDate())
-                .guestId(score.getGuestId())
-                .accommodation(accommodationMapper.toDto(score.getAccommodation()))
+                .date(score.getDate().toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDateTime())
+                .guestId(score.getGuest().getId())
+                .accommodation(accommodationMapper.toDto(score.getAccomodation()))
                 .deleted(score.isDeleted())
                 .build();
     }
