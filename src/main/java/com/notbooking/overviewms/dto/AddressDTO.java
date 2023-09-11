@@ -2,6 +2,7 @@ package com.notbooking.overviewms.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
@@ -9,9 +10,10 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DefaultDTO {
+@EqualsAndHashCode(callSuper = true)
+public class AddressDTO extends DefaultDTO {
 
-    private String id;
-    private boolean deleted;
-
+    private String street;
+    private String city;
+    private String number;
 }
