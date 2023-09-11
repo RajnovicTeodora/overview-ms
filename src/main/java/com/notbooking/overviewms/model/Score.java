@@ -1,35 +1,29 @@
 package com.notbooking.overviewms.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 
-@Data
-@Entity
-@SuperBuilder
-@NoArgsConstructor
+@Document(value = "score")
 @AllArgsConstructor
-@Table(name = "scores")
-@EqualsAndHashCode(callSuper = true)
-public class Score extends DefaultModel {
-
-    @Column(columnDefinition = "int")
+@NoArgsConstructor
+@Builder
+@Data
+public class Score {
+    @Id
+    private String Id;
     private int score;
-
-    @Column(columnDefinition = "int")
-    private LocalDateTime date;
-
-    @Column(name = "guest_id")
-    private String guestId;
-
-    @ManyToOne
-    @JoinColumn(name = "accommodation_id")
-    private Accommodation accommodation;
+    private Date date;
+    private boolean isDeleted;
+    private Guest guest;
+    private Host host;
+    private Accomodation accomodation;
 
 }
+
