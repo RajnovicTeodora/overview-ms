@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AccommodationFilterParams {
 
-    private String country;
     private String city;
     private String address;
     private int guests;

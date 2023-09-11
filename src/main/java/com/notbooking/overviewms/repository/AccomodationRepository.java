@@ -34,16 +34,14 @@ public interface AccomodationRepository extends MongoRepository<Accomodation, St
 //            @Param("toDate") String toDate);
 
 
-    List<Accomodation> findByMinGuestLessThanEqualAndMaxGuestGreaterThanEqualAndNameContainsIgnoreCase(
+    List<Accomodation> findByMinGuestLessThanEqualAndMaxGuestGreaterThanEqual(
             int maxGuest,
-            int minGuest,
-            String name
+            int minGuest
     );
 
-    List<Accomodation> findByMinGuestLessThanEqualAndMaxGuestGreaterThanEqualAndNameIsLikeAndIdNotIn(
+    List<Accomodation> findByMinGuestLessThanEqualAndMaxGuestGreaterThanEqualAndIdNotIn(
             int maxGuest,
             int minGuest,
-            String name,
             List<String> reservationIds
     );
 }
